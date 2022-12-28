@@ -7,9 +7,9 @@ app.use(cors());
 app.use(express.json());
 
 const balances = {
-  "0x1": 100,//this is the address of the first account
-  "0x2": 50,// this is the address of the second account
-  "0x3": 75, // this is the address of the third account
+  "d094c3c7647ba9eca0534b4ef553d9a7753bb9fa25f6e082fece486c344f1065": 100,//this is the public key address  of the first account
+  "1d48b9a33db00b86f7e698a89576bcebb2bbbb13c6a3244a828f48f99e264560": 50,// this is the public key address  of the second account
+  "d269a59496943f6a3cea71cfe8a76adf140675bbfbb064728c286b1f0b90ce3e": 75, // this is the public key address  of the third account
 };
 
 app.get("/balance/:address", (req, res) => {
