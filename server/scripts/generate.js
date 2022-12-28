@@ -9,21 +9,22 @@ console.log('private key:', toHex(privateKey));// this is the function that conv
 
 const publicKey = secp.getPublicKey(privateKey);// this is the function that generates the public key
 // take the last 20 bytes of the keccak hash and return this.
+console.log('public key:', toHex(publicKey));// this is the function that converts the public key to hex
 
-// let publicK = publicKey.slice(1);
-// const hash = keccak256(publicK);
-// const address = keccak256(hash).slice(-20);
-// console.log('address:', toHex(address));// this is the function that converts the address to hex
-// console.log('public key:', toHex(address)); // this is the function that converts the public key to hex
+let publicK = publicKey.slice(1);
+const hash = keccak256(publicK);
+const address = keccak256(hash).slice(-20);
+console.log('public key:', toHex(address)); // this is the function that converts the public key to hex
 
 
 //Take the last 20 bytes of the keccak hash and return this.
-const getAddress = (publicKey) => {
-    let publicK = publicKey.slice(1);
-    const hash = keccak256(publicK);
-    const address = keccak256(hash).slice(-20);
-    return toHex(address);
-}
 
+// function getAddress(publicKey) {
+//     let publicK = publicKey.slice(1);
+//     const hash = keccak256(publicK);
+//     const address = keccak256(hash).slice(-20);
+//     return toHex(address);
+// }
 
+// getAddress(publicKey);
 
