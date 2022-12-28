@@ -10,12 +10,12 @@ function Wallet({
 	privateKey,
 	setPrivateKey,
 }) {
-	function getAddress(publicKey) {
-		let publicK = publicKey.slice(1);
-		const hash = keccak256(publicK);
-		const address = keccak256(hash).slice(-20);
-		return toHex(address);
-	}
+	// function getAddress(publicKey) {
+	// 	let publicK = publicKey.slice(1);
+	// 	const hash = keccak256(publicK);
+	// 	const address = keccak256(hash).slice(-20);
+	// 	return toHex(address);
+	// }
 	async function onChange(evt) {
 		const privateKey = evt.target.value;
 		setPrivateKey(privateKey);
