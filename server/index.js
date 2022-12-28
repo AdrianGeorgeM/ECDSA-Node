@@ -7,9 +7,9 @@ app.use(cors());
 app.use(express.json());
 
 const balances = {
-  "0x1": 100,
-  "0x2": 50,
-  "0x3": 75,
+  "0x1": 100,//this is the address of the first account
+  "0x2": 50,// this is the address of the second account
+  "0x3": 75, // this is the address of the third account
 };
 
 app.get("/balance/:address", (req, res) => {
