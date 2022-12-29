@@ -11,10 +11,10 @@ const publicKey = secp.getPublicKey(privateKey);
 console.log('public key:', toHex(publicKey));//long public key
 
 // take the last 20 bytes of the keccak hash and return this.
-let publicK = publicKey.slice(1);
-const hash = keccak256(publicK).slice(-20);
-console.log('public key:', toHex(hash)); //short public key
-// //end of the snippet
+// let publicK = publicKey.slice(1);
+// const hash = keccak256(publicK).slice(-20);
+// console.log('public key:', toHex(hash)); //short public key
+// // //end of the snippet
 
 
 

@@ -39,7 +39,7 @@ function Wallet({
 				></input>
 			</label>
 
-			{/* <div>Address: {address}</div> */}
+			<div>Address: {address.slice(0, 20)}...</div>
 			<div className='balance'>Balance: {balance}</div>
 		</div>
 	);
