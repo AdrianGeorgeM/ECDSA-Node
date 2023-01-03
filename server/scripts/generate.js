@@ -1,7 +1,9 @@
 const secp = require("ethereum-cryptography/secp256k1");
 const { toHex } = require("ethereum-cryptography/utils");
 const { keccak256 } = require("ethereum-cryptography/keccak");
-
+const { utf8ToBytes } = require("ethereum-cryptography/utils");
+// const { hashMessage } = require("ethereum-cryptography/hash");
+const PRIVATE_KEY = secp.utils.randomPrivateKey();
 
 const getAddress = () => {
     const privateKey = secp.utils.randomPrivateKey();
@@ -15,3 +17,11 @@ const getAddress = () => {
     return toHex(address);
 }
 getAddress();
+
+const hashMessage = (message) => {
+    const bytes = utf8ToBytes(message);
+    const hash = keccak256(bytes);
+    console.log('hash:', toHex(hash));
+    return hash;
+}
+hashMessage('hello world1');
