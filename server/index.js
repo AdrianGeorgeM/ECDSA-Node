@@ -21,13 +21,6 @@ app.get("/balance/:address", (req, res) => {
 app.post("/send", (req, res) => {
   //TODO get a signature from the clien-side application
   //recover the public key from the signature
-  //check if the public key is the same as the sender
-  //if not, return an error
-  //if yes, continue with the transfer
-  // Incorporate Public Key Cryptography so transfers can only be completed with a valid signature
-  // The person sending the transaction should have to verify that they own the private key corresponding to the address that is sending funds
-
-
   const { sender, recipient, amount } = req.body;
 
   setInitialBalance(sender);

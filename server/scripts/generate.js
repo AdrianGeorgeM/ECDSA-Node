@@ -32,4 +32,12 @@ const signMessage = (msg) => {
     const messageHash = hashMessage(msg);
     return secp.sign(messageHash, PRIVATE_KEY, { recovered: true });
 }
-signMessage('hello world1');
+signMessage('hello world');
+
+
+// When the signature is passed with all of its components (recovery bit included), the public key can be recovered. This means that blockchain nodes will be able to understand who signed the transaction that was sent to them
+const recoverKey = (message, signature, recoveryBit) => {
+    const messageHash = hashMessage(message);
+    console.log(secp.recoverPublicKey(messageHash, signature, recoveryBit));
+    return secp.recoverPublicKey(messageHash, signature, recoveryBit);
+}
