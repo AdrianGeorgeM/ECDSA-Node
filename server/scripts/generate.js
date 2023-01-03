@@ -16,7 +16,6 @@ const getAddress = () => {
     console.log('Sliced public key:', toHex(address));//short public key
     return toHex(address);
 }
-getAddress();
 
 //After we have the message hash we can sign it with our private key to prove that a particular address votes yes on proposal 327.
 const hashMessage = (message) => {
@@ -32,8 +31,6 @@ const signMessage = (msg) => {
     const messageHash = hashMessage(msg);
     return secp.sign(messageHash, PRIVATE_KEY, { recovered: true });
 }
-signMessage('hello world');
-
 
 // When the signature is passed with all of its components (recovery bit included), the public key can be recovered. This means that blockchain nodes will be able to understand who signed the transaction that was sent to them
 const recoverKey = (message, signature, recoveryBit) => {
@@ -41,3 +38,13 @@ const recoverKey = (message, signature, recoveryBit) => {
     console.log(secp.recoverPublicKey(messageHash, signature, recoveryBit));
     return secp.recoverPublicKey(messageHash, signature, recoveryBit);
 }
+
+const address = getAddress();
+console.log(address);
+const message = 'Hello world';
+const signature = signMessage(message);
+console.log(signature);
+// const recoveredKey = recoverKey('Hello world', signature.signature, signature.recovery);
+// console.log(recoveredKey);
+
+
