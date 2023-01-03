@@ -7,9 +7,9 @@ app.use(cors());
 app.use(express.json());
 
 const balances = {
-  "040f96b2b0f0e05020478696e876bcecb75de99764d54a7748d8e8ceecde88940c796689fe7c2dc9707283a023f519715014ffda29e64d04c209f1c49962a011df": 100,//this is the public key address  of the first account
-  "042be07eaccba5af4702d35a317773f899615e1ac7d834667105d03584b82258deee2456bafee8386829466e8b6209b51867aab352a457cb128d41c48d10eabd23": 50,// this is the public key address  of the second account
-  "0454f801b1f0e86461768d2f706dbbf28584f9c1b42d6e9b034d4f25ce4af466884292ff7ebff4c776a2570478ae04c1f13431e7dc1c79c389c5eabbf1d73c565a": 75, // this is the public key address  of the third account
+  "78667289ba046040d0b8030b43df0020bd60ab2b": 100,//private key: 4b7dac24309b95122db428cd86fd1d3933344d8bbb57f2187051fede961a2d7e
+  "b267700bae6b3b329034f11cd11b39331e77864a": 50,// private key: 13744f655b516d43f1044ffbc304082a8515b279a158b3ae7e2abb17d1903ff0
+  "19a92164c94e8f9b60938e208bdbc8c8c11c3b1e": 75, // private key: db5337b9f5dc15a94b0dfd6863cbf35feb279af520a1e60eff43164e1460739b
 };
 
 app.get("/balance/:address", (req, res) => {
