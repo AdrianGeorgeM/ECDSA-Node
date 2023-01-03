@@ -25,3 +25,11 @@ const hashMessage = (message) => {
     return hash;
 }
 hashMessage('hello world1');
+
+const signMessage = (msg) => {
+    const messageHash = hashMessage(msg);
+    // const signature = secp.sign(messageHash, PRIVATE_KEY, { recovered: true });
+    // console.log('signature:', signature);
+    return secp.sign(messageHash, PRIVATE_KEY, { recovered: true });
+}
+signMessage('hello world1');
