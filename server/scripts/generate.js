@@ -1,30 +1,43 @@
-const secp = require("ethereum-cryptography/secp256k1");// this is the library that we will use to generate the private key
-const { toHex } = require("ethereum-cryptography/utils");// this is the library that we will use to convert the private key to hex
-
+const secp = require("ethereum-cryptography/secp256k1");
+const { toHex } = require("ethereum-cryptography/utils");
 const { keccak256 } = require("ethereum-cryptography/keccak");
-const privateKey = secp.utils.randomPrivateKey();// this is the function that generates the private key
-// console.log('private key:', privateKey);
-//Run into server: node scripts/generate.js to see the private key
-console.log('private key:', toHex(privateKey));// this is the function that converts the private key to hex
+const { utf8ToBytes } = require("ethereum-cryptography/utils");
+// const { hashMessage } = require("ethereum-cryptography/hash");
+const PRIVATE_KEY = secp.utils.randomPrivateKey();
 
-const publicKey = secp.getPublicKey(privateKey);// this is the function that generates the public key
-// take the last 20 bytes of the keccak hash and return this.
-console.log('public key:', toHex(publicKey));// this is the function that converts the public key to hex
+const getAddress = () => {
+    const privateKey = secp.utils.randomPrivateKey();
+    let publicK = secp.getPublicKey(privateKey);
+    console.log('private key:', toHex(privateKey));//private key
+    console.log('Long public key:', toHex(publicK));//long public key
+    let public = publicK.slice(1);
+    const hash = keccak256(public);
+    const address = hash.slice(-20);
+    console.log('Sliced public key:', toHex(address));//short public key
+    return toHex(address);
+}
+getAddress();
 
-let publicK = publicKey.slice(1);
-const hash = keccak256(publicK);
-const address = keccak256(hash).slice(-20);
-console.log('public key:', toHex(address)); // this is the function that converts the public key to hex
+//After we have the message hash we can sign it with our private key to prove that a particular address votes yes on proposal 327.
+const hashMessage = (message) => {
+    const bytes = utf8ToBytes(message);
+    const hash = keccak256(bytes);
+    console.log('hash:', toHex(hash));
+    return hash;
+}
+
+// Signing the Hash
+// This will allow a blockchain node to take a signature of a transaction and understand which address authenticated this particular transaction.
+const signMessage = (msg) => {
+    const messageHash = hashMessage(msg);
+    return secp.sign(messageHash, PRIVATE_KEY, { recovered: true });
+}
+signMessage('hello world');
 
 
-//Take the last 20 bytes of the keccak hash and return this.
-
-// function getAddress(publicKey) {
-//     let publicK = publicKey.slice(1);
-//     const hash = keccak256(publicK);
-//     const address = keccak256(hash).slice(-20);
-//     return toHex(address);
-// }
-
-// getAddress(publicKey);
-
+// When the signature is passed with all of its components (recovery bit included), the public key can be recovered. This means that blockchain nodes will be able to understand who signed the transaction that was sent to them
+const recoverKey = (message, signature, recoveryBit) => {
+    const messageHash = hashMessage(message);
+    console.log(secp.recoverPublicKey(messageHash, signature, recoveryBit));
+    return secp.recoverPublicKey(messageHash, signature, recoveryBit);
+}

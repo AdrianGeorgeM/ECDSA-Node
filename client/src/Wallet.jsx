@@ -10,12 +10,6 @@ function Wallet({
 	privateKey,
 	setPrivateKey,
 }) {
-	// function getAddress(publicKey) {
-	// 	let publicK = publicKey.slice(1);
-	// 	const hash = keccak256(publicK);
-	// 	const address = keccak256(hash).slice(-20);
-	// 	return toHex(address);
-	// }
 	async function onChange(evt) {
 		const privateKey = evt.target.value;
 		setPrivateKey(privateKey);
@@ -38,13 +32,14 @@ function Wallet({
 			<label>
 				Private Key
 				<input
-					placeholder='Type in a private key for example: 0x1'
+					placeholder='Type an 
+          Ethereum private key here    '
 					value={privateKey}
 					onChange={onChange}
 				></input>
 			</label>
 
-			<div>Address: {address}</div>
+			<div>Address: {address.slice(0, 20)}...</div>
 			<div className='balance'>Balance: {balance}</div>
 		</div>
 	);
