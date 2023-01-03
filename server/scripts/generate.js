@@ -18,18 +18,18 @@ const getAddress = () => {
 }
 getAddress();
 
+//After we have the message hash we can sign it with our private key to prove that a particular address votes yes on proposal 327.
 const hashMessage = (message) => {
     const bytes = utf8ToBytes(message);
     const hash = keccak256(bytes);
     console.log('hash:', toHex(hash));
     return hash;
 }
-hashMessage('hello world1');
 
+// Signing the Hash
+// This will allow a blockchain node to take a signature of a transaction and understand which address authenticated this particular transaction.
 const signMessage = (msg) => {
     const messageHash = hashMessage(msg);
-    // const signature = secp.sign(messageHash, PRIVATE_KEY, { recovered: true });
-    // console.log('signature:', signature);
     return secp.sign(messageHash, PRIVATE_KEY, { recovered: true });
 }
 signMessage('hello world1');
