@@ -33,12 +33,24 @@ function Transfer({ address, setBalance, privateKey }) {
 		const [sig, recoveryBit] = await secp.sign(hash, privateKey, {
 			recovered: true,
 		});
+		console.log("sig:", sig);
 
-		const signMessage = (hash, privateKey) => {
+		async function signMessage(hash, privateKey) {
 			const messageHash = hashMessage(hash);
-			return secp.sign(messageHash, privateKey, { recovered: true });
-		};
-
+			// console.log("messageHash:", messageHash);
+			// console.log("privateKey:", privateKey);
+			console.log(
+				"signature:",
+				await secp.sign(messageHash, privateKey, { recovered: true })
+			);
+			return await secp.sign(messageHash, privateKey, { recovered: true });
+			// const [sig, recoveryBit] = await secp.sign(messageHash, privateKey, {
+			// 	recovered: true,
+			// });
+			// console.log("signature:", sig);
+			// console.log("recoveryBit:", recoveryBit);
+			// return [sig, recoveryBit];
+		}
 		const recoverKey = (message, signature, recoveryBit) => {
 			const messageHash = hashMessage(message);
 			// console.log(
@@ -46,7 +58,6 @@ function Transfer({ address, setBalance, privateKey }) {
 			// );
 			return toHex(secp.recoverPublicKey(messageHash, signature, recoveryBit));
 		};
-
 		const verifySignature = (message, signature, publicKey) => {
 			const messageHash = hashMessage(message);
 			return secp.verifySignature(messageHash, signature, publicKey);
@@ -54,14 +65,13 @@ function Transfer({ address, setBalance, privateKey }) {
 
 		// hashMessage(message);
 		recoverKey(hash, sig, recoveryBit);
-		const signMessageV = signMessage(hash, privateKey);
+
 		message.sign = toHex(sig);
+		signMessage(hash, privateKey);
 		message.recoveryBit = recoveryBit;
 		setSignature(toHex(sig));
 		setRecoveryBit(recoveryBit);
 		console.log("MESSAGE:", message);
-		// console.log("recoverKey:", recoverKey(hash, sig, recoveryBit));
-		// console.log("signMessage:", signMessageV);
 
 		try {
 			const {
